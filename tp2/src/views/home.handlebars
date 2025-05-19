@@ -1,0 +1,28 @@
+<h1>Lista de Productos</h1>
+<div class="row">
+    {{#each products}}
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{this.title}}</h5>
+                    <p class="card-text">Precio: ${{this.price}}</p>
+                    <button class="btn btn-danger btn-sm" onclick="deleteProduct({{this.id}})">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    {{/each}}
+</div>
+
+<script>
+    function deleteProduct(id) {
+        fetch(`/api/products/${id}`, {
+            method: 'DELETE'
+        }).then(response => {
+            if (response.ok) {
+                window.location.reload(); // Recargar la página para actualizar la lista
+            } else {
+                alert('Error al eliminar el producto');
+            }
+        });
+    }
+</script>
